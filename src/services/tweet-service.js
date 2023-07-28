@@ -1,8 +1,9 @@
-const { TweetRepository } = require('../repository/index');
+const { TweetRepository, HashtagRepository } = require('../repository/index');
 
 class TweetService {
     constructor(){
           this.tweetRepository = new TweetRepository();
+          this.hashtagRepository = new HashtagRepository();
     }
 
     //making the collection for the hashtags by extracting it from the tweets
@@ -12,6 +13,8 @@ class TweetService {
         tags = tags.map((tag) => tag.substring(1));
         console.log(tags);
         const tweet = await this.tweetRepository.create(data);
+        const alreadyPresentTags = this.hashtagRepository.findByName(tags).map(tags => tags.title);
+        const newTags = tags.filter(tag => !alreadyPresentTags.includes(tag));
         // todo create hashtags and add here
         /*
         1. bulk insert in mongoose
