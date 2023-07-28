@@ -2,7 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 
 //files import
-const connectDB = require('./src/config/db')
+const connectDB = require('./config/db')
 
 dotenv.config();
 
